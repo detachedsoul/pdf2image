@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>Tinvo</title>
+		<meta
+			name="description"
+			content="Extract images in your pdf in seconds"
+		/>
+
+		<link
+			rel="preload"
+			href="./assets/style.css"
+			as="stylesheet"
+		/>
+		<link
+			rel="preload"
+			href="./assets/style.css"
+			as="script"
+		/>
+		<link
+			rel="preload"
+			href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"
+			as="script"
+		/>
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com"
+		/>
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link
+			rel="stylesheet"
+			href="./assets/style.css"
+		/>
+	</head>
+	<body class="antialiased font-interDisplay break-words [word-break:break-word] [word-wrap:break-word]">
+		<header
+			class="flex items-center gap-4 justify-between p-4 border-b border-[#f0f2f5] lg:px-[12.5rem] sticky top-0 bg-white/60 backdrop-blur z-[1024]"
+		>
+			<img
+				class="w-1/3 h-auto lg:w-auto"
+				src="./assets/img/logo.svg"
+				alt="Tinvo"
+			/>
+
+			<a
+				class="bg-[#229eff] py-2.5 px-4 rounded-xl font-semibold text-[0.938] text-white transition-colors duration-300 hover:bg-[#229eff]/70 hover:shadow-inner hover:drop-shadow-xl hover:ring-1 ring-offset-2 hover:ring-[#229eff]/70"
+				href=""
+			>
+				Buy us a coffee
+			</a>
+		</header>
+
+		<main class="py-12 grid gap-12">
+			<div class="text-center grid gap-4 px-8 lg:gap-8 lg:px-64">
+				<h1
+					class="text-[#0a0c0e] text-4xl lg:text-8xl/[6rem] font-instrumentSerif"
+				>
+					Convert your PDF to images in seconds
+				</h1>
+
+				<p
+					class="text-[#586283] text-lg md:w-4/5 md:mx-auto lg:text-xl/8"
+				>
+					Quickly transform your PDFs into high-quality images, ready
+					for use in just a few moments.
+				</p>
+
+				<form
+					class="border border-[#f0f2f5] rounded-2xl bg-[#fcfcfc] flex items-center justify-between flex-wrap gap-4 relative z-50 py-5 px-4 lg:w-4/5 lg:mx-auto"
+					id="uploadForm"
+				>
+					<label
+                        for="pdfFile"
+					>
+						<div class="flex items-center gap-4">
+							<img
+								class="shrink-0"
+								src="./assets/img/upload-icon.svg"
+								alt=""
+							/>
+
+							<div class="text-left space-y-1">
+								<p class="font-medium text-[#101928]">
+									Click to Upload or Drag & Drop
+								</p>
+
+								<p
+									class="text-[#586283] text-sm flex items-center gap-x-2 gap-y-1 break-words flex-wrap"
+								>
+									PDF
+									<span
+										class="size-1 bg-[#586283] rounded-full inline-block"
+									></span>
+									2GB max.
+								</p>
+
+                                <p class="uploadFileName"></p>
+							</div>
+						</div>
+
+                        <input
+                            type="file"
+                            class="h-full cursor-pointer opacity-0 absolute inset-0 w-full rounded-xl z-50"
+                            id="pdfFile"
+                            name="pdfFile"
+                            accept="application/pdf"
+                            title=""
+                        />
+					</label>
+
+                    <button
+                        class="bg-black/100 rounded-xl text-white py-2 px-4 inline-block hover:bg-black/80 hover:ring-1 ring-offset-2 hover:ring-black/80 mx-auto z-50 sm:mx-0"
+                        type="submit"
+                    >
+                        Upload
+                    </button>
+				</form>
+
+                <div
+					class="border border-[#f0f2f5] rounded-2xl py-5 px-4 bg-[#fcfcfc] lg:w-4/5 lg:mx-auto hidden items-center justify-between flex-wrap gap-4 successContainer"
+				>
+                    <div class="flex items-center gap-4">
+                        <img
+                            class="shrink-0"
+                            src="./assets/img/success-icon.svg"
+                            alt=""
+                        />
+
+                        <div class="text-left">
+                            <p class="font-medium text-[#101928]">
+                                Upload Successful
+                            </p>
+
+                            <p
+                                class="text-[#586283] text-sm flex flex-wrap items-center gap-x-2 gap-y-1 break-words"
+                            >
+                                <span class="successFileName"></span>
+
+                                <span
+                                    class="size-1 bg-[#586283] rounded-full inline-block"
+                                ></span>
+
+                                <span class="successSize"></span>
+
+                                <span
+                                    class="size-1 bg-[#586283] rounded-full inline-block"
+                                ></span>
+
+                                <span class="successDate"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        class="mx-auto sm:mx-0 resetUpload"
+                        type="button"
+                    >
+                        <img src="./assets/img/delete-icon.svg" alt="Delete PDF" />
+                    </button>
+				</div>
+
+                <div
+					class="border border-[#f0f2f5] rounded-2xl py-5 px-4 bg-[#fcfcfc] lg:w-4/5 lg:mx-auto items-center justify-between flex-wrap gap-4 hidden uploadProgressContainer"
+				>
+                    <div class="flex items-center w-[calc(100%-4rem)] gap-4 md:w-3/5">
+                        <img
+                            class="shrink-0"
+                            src="./assets/img/uploading-icon.svg"
+                            alt=""
+                        />
+
+                        <div class="text-left w-full space-y-1">
+                            <p class="font-medium text-[#101928]">
+                                Uploading Document
+                            </p>
+
+                            <div class="w-full h-1.5 bg-[#f0f2f5] rounded-xl relative after:absolute after:inset-0 after:h-1.5 after:rounded-xl after:w-[var(--after-width)] after:bg-[#22b829] progressBar"></div>
+
+                            <p
+                                class="text-[#586283] text-sm flex flex-wrap items-center gap-x-2 break-words gap-y-1"
+                            >
+                                <span class="progressName"></span>
+
+                                <span
+                                    class="size-1 bg-[#586283] rounded-full inline-block"
+                                ></span>
+
+                                <span class="progress"></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        class="shrink-0 uploadResetBtn"
+                        type="button"
+                    >
+                        <img src="./assets/img/cancel-icon.svg" alt="Delete PDF" />
+                    </button>
+				</div>
+
+                <div
+					class="border border-[#f0f2f5] rounded-2xl py-5 px-4 bg-[#fcfcfc] lg:w-4/5 lg:mx-auto hidden items-center justify-between flex-wrap gap-4 errorContainer"
+				>
+                    <div class="flex items-center gap-4">
+                        <img
+                            class="shrink-0"
+                            src="./assets/img/error-icon.svg"
+                            alt=""
+                        />
+
+                        <div class="text-left">
+                            <p class="font-medium text-[#101928] errorFileName"></p>
+
+                            <p class="text-[#F23C57] text-sm flex flex-wrap items-center gap-x-2 gap-y-1 break-words errorMessage"></p>
+
+                            <p
+                                class="text-[#F23C57] text-sm hidden flex-wrap items-center gap-x-2 gap-y-1 break-words fileTooLarge"
+                            >
+                                The file is too large to upload.
+
+                                <span
+                                    class="size-1 bg-[#586283] rounded-full inline-block"
+                                ></span>
+
+                                <a class="text-[#039AFF] hover:underline underline-offset-4 decoration-double" href="">
+                                    Get Premium
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <button
+                        class="mx-auto sm:mx-0 resetErrorBtn"
+                        type="button"
+                    >
+                        <img src="./assets/img/refresh-icon.svg" alt="Try again" />
+                    </button>
+				</div>
+			</div>
+
+			<div class="grid gap-8">
+				<div class="grid gap-4 place-content-center">
+					<h2
+						class="font-instrumentSerif text-[#0a0c0e] text-center text-3xl lg:text-[2.5rem]/[2.5rem] document-name"
+					></h2>
+
+					<button
+						class="bg-[#22bb29] text-white font-medium text-sm hidden items-center gap-2 rounded-xl py-2 px-4 mx-auto hover:bg-[#22bb29]/80 hover:ring-1 ring-offset-2 hover:ring-[#22bb29]/80"
+                        id="downloadAllBtn"
+                        type="button"
+					>
+						<img
+							src="./assets/img/download-all-icon.svg"
+							alt=""
+						/>
+
+						Download All
+                </button>
+				</div>
+			</div>
+
+			<div
+				class="grid grid-cols-2 gap-4 px-4 lg:px-[12.5rem] lg:grid-cols-3"
+				id="output"
+			></div>
+		</main>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+		<script src="./assets/main.js"></script>
+	</body>
+</html>

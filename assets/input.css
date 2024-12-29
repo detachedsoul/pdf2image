@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    @font-face {
+        font-family: "Inter Display";
+        src: url("./fonts/InterDisplay-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Inter Display";
+        src: url("./fonts/InterDisplay-Medium.ttf") format("truetype");
+        font-weight: 500;
+        font-display: swap;
+    }
+
+    .progressBar {
+        --after-width: 0;
+    }
+}
